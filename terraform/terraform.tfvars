@@ -1,0 +1,10 @@
+aws_region            = "ap-south-1"
+project_name          = "ecs-sqs-msk"
+vpc_id                = "vpc-xxxxxxxx"
+private_subnet_ids    = ["subnet-aaa", "subnet-bbb"]
+sqs_queue_url         = "https://sqs.ap-south-1.amazonaws.com/123456789012/my-queue"
+sqs_queue_arn         = "arn:aws:sqs:ap-south-1:123456789012:my-queue"
+msk_bootstrap_servers = "b-1.example.amazonaws.com:9092,b-2.example.amazonaws.com:9092"
+msk_cluster_arn       = "arn:aws:kafka:ap-south-1:123456789012:cluster/my-cluster/..."
+msk_topic             = "raw-topic"
+ecs_image_uri         = "123456789012.dkr.ecr.ap-south-1.amazonaws.com/ecs-sqs-poller:latest"
