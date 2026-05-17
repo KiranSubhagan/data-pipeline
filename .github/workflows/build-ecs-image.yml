@@ -1,0 +1,25 @@
+name: Build ECS Image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/github-actions-role
+          aws-region: us-east-1
+
+      - uses: aws-actions/amazon-ecr-login@v2
+
+      - run: |
+          docker build -t ecs-sqs-poller ./app
+          docker tag ecs-sqs-poller:latest ${{ secrets.ECR_URI }}:latest
+          docker push ${{ secrets.ECR_URI }}:latest
