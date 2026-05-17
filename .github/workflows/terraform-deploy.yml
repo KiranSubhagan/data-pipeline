@@ -1,0 +1,27 @@
+name: Terraform Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'terraform/**'
+      - 'lambda/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: |
+          cd lambda
+          chmod +x build.sh
+          ./build.sh
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - run: |
+          cd terraform
+          terraform init
+          terraform apply -auto-approve
